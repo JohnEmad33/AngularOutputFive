@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   @ViewChild('productsForm') form: NgForm;
   editMode: boolean = false;
   currentProductId: string;
+  errorMessage:string=null;
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
@@ -40,6 +41,8 @@ export class AppComponent implements OnInit {
           desc: '',
           price: '',
         });
+      },(err)=>{
+        this.errorMessage=err.message;
       });
     } else {
       this.productService
@@ -77,6 +80,8 @@ export class AppComponent implements OnInit {
       console.log(products);
       this.allProducts = products;
       this.isFetching = false;
+    },(err)=>{
+      this.errorMessage=err.message;
     });
   }
 
